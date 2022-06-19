@@ -35,9 +35,9 @@ contract Ownable {
         _;
     }
 
-    modifier isValidAddress(adddress a)
+    modifier isValidAddress(address a)
     {
-        require(a != addres(0), "Not a valid address");
+        require(a != address(0), "Not a valid address");
         _;
     }
 
