@@ -1,23 +1,61 @@
-pragma solidity ^0.5.0;
+pragma solidity ^0.8.15;
 
 import 'openzeppelin-solidity/contracts/utils/Address.sol';
-import 'openzeppelin-solidity/contracts/drafts/Counters.sol';
-import 'openzeppelin-solidity/contracts/math/SafeMath.sol';
+import 'openzeppelin-solidity/contracts/utils/Counters.sol';
+import 'openzeppelin-solidity/contracts/utils/math/SafeMath.sol';
 import 'openzeppelin-solidity/contracts/token/ERC721/IERC721Receiver.sol';
 import "./Oraclize.sol";
 
 contract Ownable {
-    //  TODO's
-    //  1) create a private '_owner' variable of type address with a public getter function
-    //  2) create an internal constructor that sets the _owner var to the creater of the contract 
-    //  3) create an 'onlyOwner' modifier that throws if called by any account other than the owner.
-    //  4) fill out the transferOwnership function
-    //  5) create an event that emits anytime ownerShip is transfered (including in the constructor)
+    // create a private '_owner' variable of type address
+    address private _owner;
 
-    function transferOwnership(address newOwner) public onlyOwner {
-        // TODO add functionality to transfer control of the contract to a newOwner.
-        // make sure the new owner is a real address
+    // create an event that emits anytime ownerShip is transfered (including in the constructor)
+    event ownershipTransfered(address from, address to);
 
+    // create an internal constructor that sets the _owner var to the creater of the contract 
+    constructor() internal
+    {
+        _owner = msg.sender;
+        emit ownershipTransfered(address(0), _owner);
+    }
+
+    // public getter function for owner
+    function owner() external
+                     returns(address)
+    {
+        return _owner;
+        
+    }
+
+    // create an 'onlyOwner' modifier that throws if called by any account other than the owner.
+    modifier onlyOwner()
+    {
+        require(msg.sender == _owner, "Caller is not the owner of the contract");
+        _;
+    }
+
+    modifier isValidAddress(adddress a)
+    {
+        require(a != addres(0), "Not a valid address");
+        _;
+    }
+
+    modifier isNotOwner(address a)
+    {
+        require(a != _owner, "Address is owner");
+        _;
+    }
+
+    // Transfer ownership
+    function transferOwnership(address newOwner) public
+                                                 onlyOwner
+                                                 isValidAddress(newOwner)
+                                                 isNotOwner(newOwner)
+    {
+        address origOwner = _owner;
+        _owner = newOwner;
+        emit ownershipTransfered(origOwner, _owner);
     }
 }
 
