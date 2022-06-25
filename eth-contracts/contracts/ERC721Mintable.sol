@@ -14,7 +14,7 @@ contract Ownable {
     event ownershipTransfered(address from, address to);
 
     // create an internal constructor that sets the _owner var to the creater of the contract 
-    constructor() internal
+    constructor()
     {
         _owner = msg.sender;
         emit ownershipTransfered(address(0), _owner);
@@ -69,7 +69,7 @@ contract Pausable is Ownable {
 
     bool private _paused;
 
-    constructor() internal
+    constructor()
     {
         _paused = false;
     }
@@ -123,7 +123,8 @@ contract ERC165 {
      * @dev A contract implementing SupportsInterfaceWithLookup
      * implement ERC165 itself
      */
-    constructor () internal {
+    constructor ()
+    {
         _registerInterface(_INTERFACE_ID_ERC165);
     }
 
@@ -176,7 +177,8 @@ contract ERC721 is Pausable, ERC165 {
 
     bytes4 private constant _INTERFACE_ID_ERC721 = 0x80ac58cd;
 
-    constructor () public {
+    constructor () 
+    {
         // register the supported interfaces to conform to ERC721 via ERC165
         _registerInterface(_INTERFACE_ID_ERC721);
     }
@@ -212,6 +214,7 @@ contract ERC721 is Pausable, ERC165 {
 
     function getApproved(uint256 tokenId) public view returns (address) {
         // TODO return token approval if it exists
+        return _tokenApprovals[tokenId];
     }
 
     /**
@@ -275,18 +278,26 @@ contract ERC721 is Pausable, ERC165 {
 
     // @dev Internal function to mint a new token
     // TIP: remember the functions to use for Counters. you can refresh yourself with the link above
-    function _mint(address to, uint256 tokenId) internal {
+    function _mint(address to, uint256 tokenId) internal 
+                                                virtual
+    {
 
         // TODO revert if given tokenId already exists or given address is invalid
+        require(!_exists(tokenId), "Token already exists");
   
         // TODO mint tokenId to given address & increase token count of owner
+        safeTransferFrom(msg.sender, to, tokenId);
 
         // TODO emit Transfer event
+        // Already taken care of in the safe transfer above
+
     }
 
     // @dev Internal function to transfer ownership of a given token ID to another address.
     // TIP: remember the functions to use for Counters. you can refresh yourself with the link above
-    function _transferFrom(address from, address to, uint256 tokenId) internal {
+    function _transferFrom(address from, address to, uint256 tokenId) internal
+                                                                      virtual
+    {
 
         // TODO: require from address is the owner of the given token
 
@@ -297,6 +308,7 @@ contract ERC721 is Pausable, ERC165 {
         // TODO: update token counts & transfer ownership of the token ID 
 
         // TODO: emit correct event
+        emit Transfer(msg.sender, to, tokenId);
     }
 
     /**
@@ -393,7 +405,9 @@ contract ERC721Enumerable is ERC165, ERC721 {
      * @param to address to receive the ownership of the given token ID
      * @param tokenId uint256 ID of the token to be transferred
      */
-    function _transferFrom(address from, address to, uint256 tokenId) internal {
+    function _transferFrom(address from, address to, uint256 tokenId) internal
+                                                                      override
+    {
         super._transferFrom(from, to, tokenId);
 
         _removeTokenFromOwnerEnumeration(from, tokenId);
@@ -407,7 +421,9 @@ contract ERC721Enumerable is ERC165, ERC721 {
      * @param to address the beneficiary that will own the minted token
      * @param tokenId uint256 ID of the token to be minted
      */
-    function _mint(address to, uint256 tokenId) internal {
+    function _mint(address to, uint256 tokenId) internal 
+                                                override
+    {
         super._mint(to, tokenId);
 
         _addTokenToOwnerEnumeration(to, tokenId);
@@ -455,7 +471,8 @@ contract ERC721Enumerable is ERC165, ERC721 {
         // To prevent a gap in from's tokens array, we store the last token in the index of the token to delete, and
         // then delete the last slot (swap and pop).
 
-        uint256 lastTokenIndex = _ownedTokens[from].length.sub(1);
+        // https://stackoverflow.com/questions/66617876/member-sub-not-found-or-not-visible-after-argument-dependent-lookup-in-tuple
+        uint256 lastTokenIndex = _ownedTokens[from].length - 1;
         uint256 tokenIndex = _ownedTokensIndex[tokenId];
 
         // When the token to delete is the last token, the swap operation is unnecessary
@@ -467,7 +484,8 @@ contract ERC721Enumerable is ERC165, ERC721 {
         }
 
         // This also deletes the contents at the last position of the array
-        _ownedTokens[from].length--;
+        // https://ethereum.stackexchange.com/questions/80743/how-to-reset-the-length-of-array-in-solidity-v6-0
+        _ownedTokens[from].pop();
 
         // Note that _ownedTokensIndex[tokenId] hasn't been cleared: it still points to the old slot (now occupied by
         // lastTokenId, or just over the end of the array if the token was the last one).
@@ -482,7 +500,7 @@ contract ERC721Enumerable is ERC165, ERC721 {
         // To prevent a gap in the tokens array, we store the last token in the index of the token to delete, and
         // then delete the last slot (swap and pop).
 
-        uint256 lastTokenIndex = _allTokens.length.sub(1);
+        uint256 lastTokenIndex = _allTokens.length - 1;
         uint256 tokenIndex = _allTokensIndex[tokenId];
 
         // When the token to delete is the last token, the swap operation is unnecessary. However, since this occurs so
@@ -494,7 +512,7 @@ contract ERC721Enumerable is ERC165, ERC721 {
         _allTokensIndex[lastTokenId] = tokenIndex; // Update the moved token's index
 
         // This also deletes the contents at the last position of the array
-        _allTokens.length--;
+        _allTokens.pop();
         _allTokensIndex[tokenId] = 0;
     }
 }
@@ -502,8 +520,13 @@ contract ERC721Enumerable is ERC165, ERC721 {
 contract ERC721Metadata is ERC721Enumerable, usingOraclize {
     
     // TODO: Create private vars for token _name, _symbol, and _baseTokenURI (string)
+    string private _name;
+    string private _symbol;
+    string private _baseTokenURI;
+
 
     // TODO: create private mapping of tokenId's to token uri's called '_tokenURIs'
+    mapping(uint256 => string) private _tokenURIs;
 
     bytes4 private constant _INTERFACE_ID_ERC721_METADATA = 0x5b5e139f;
     /*
