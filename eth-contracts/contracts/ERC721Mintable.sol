@@ -65,6 +65,47 @@ contract Ownable {
 //  3) create an internal constructor that sets the _paused variable to false
 //  4) create 'whenNotPaused' & 'paused' modifier that throws in the appropriate situation
 //  5) create a Paused & Unpaused event that emits the address that triggered the event
+contract Pausable is Ownable {
+
+    bool private _paused;
+
+    constructor() internal
+    {
+        _paused = false;
+    }
+
+    event Paused(address triggeredBy);
+    event Unpaused(address triggeredBy);
+
+    modifier whenNotPaused() 
+    {
+        require(!_paused, "Contract is paused");
+        _;
+    }
+
+    modifier whenPaused()
+    {
+        require(_paused, "Contract is unpaused");
+        _;
+    }
+
+    function setPaused(bool val) public 
+                                 onlyOwner 
+    {
+        // only set the value if it is different
+        if (_paused != val)
+        {
+            _paused = val;
+
+            // send event of change
+            if (_paused) 
+                emit Paused(msg.sender);
+            else
+                emit Unpaused(msg.sender);
+        }
+    }
+}
+
 
 contract ERC165 {
     bytes4 private constant _INTERFACE_ID_ERC165 = 0x01ffc9a7;
@@ -143,16 +184,20 @@ contract ERC721 is Pausable, ERC165 {
     function balanceOf(address owner) public view returns (uint256) {
         // TODO return the token balance of given address
         // TIP: remember the functions to use for Counters. you can refresh yourself with the link above
+        return _ownedTokensCount[owner].current();
     }
 
     function ownerOf(uint256 tokenId) public view returns (address) {
         // TODO return the owner of the given tokenId
+        return _tokenOwner[tokenId];
     }
 
 //    @dev Approves another address to transfer the given token ID
     function approve(address to, uint256 tokenId) public {
         
         // TODO require the given address to not be the owner of the tokenId
+        address owner = ownerOf(tokenId);
+        require(owner != msg.sender, "Owner of token is not the sender");
 
         // TODO require the msg sender to be the owner of the contract or isApprovedForAll() to be true
 
