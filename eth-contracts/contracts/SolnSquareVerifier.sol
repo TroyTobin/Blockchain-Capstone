@@ -1,37 +1,57 @@
 pragma solidity ^0.8.15;
 
+import "./verifier.sol";
+import "./ERC721Mintable.sol";
+
+// Using this as a guide
+// https://knowledge.udacity.com/questions/720350
+// https://www.youtube.com/watch?v=aTtiIWfl910
+// https://andresaaap.medium.com/capstone-real-estate-marketplace-project-faq-udacity-blockchain-69fe13b4c14e
+
 // TODO define a contract call to the zokrates generated solidity contract <Verifier> or <renamedVerifier>
-
-
+interface Verifier {
+    function verifyTx(Proof memory proof, uint[2] memory input) public
+                                                                view
+                                                                returns (bool r);
+}
 
 // TODO define another contract named SolnSquareVerifier that inherits from your ERC721Mintable class
+contract SolnSquareVerifier is CustomERC721Token
+{
+    Verifier verifierContract;
+
+    // TODO define a solutions struct that can hold an index & an address
+    struct Solution {
+        uint256 index;
+        address addr;
+    }
 
 
+    // TODO define an array of the above struct
+    Solution[] solutions;
 
-// TODO define a solutions struct that can hold an index & an address
-
-
-// TODO define an array of the above struct
-
-
-// TODO define a mapping to store unique solutions submitted
+    // TODO define a mapping to store unique solutions submitted
+    // Using "hash" of solution as the key
+    mapping (bytes32 => Solution) solutionMap;
 
 
-
-// TODO Create an event to emit when a solution is added
-
-
-
-// TODO Create a function to add the solutions to the array and emit the event
+    // TODO Create an event to emit when a solution is added
+    event solutionAdded(Solution s);
 
 
+    // TODO Create a function to add the solutions to the array and emit the event
+    function addSolution(uint256 index, address addr) external
+    {
 
-// TODO Create a function to mint new NFT only after the solution has been verified
-//  - make sure the solution is unique (has not been used before)
-//  - make sure you handle metadata as well as tokenSuplly
+    }
 
+
+    // TODO Create a function to mint new NFT only after the solution has been verified
+    //  - make sure the solution is unique (has not been used before)
+    //  - make sure you handle metadata as well as tokenSuplly
+    function mintNewNFT(uint256 tokenId, address creator, )
   
-
+}
 
 
 
