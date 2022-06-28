@@ -129,7 +129,12 @@ contract('TestERC721Mintable', accounts => {
         })
 
         it('should fail when minting when address is not contract owner', async function () { 
-            
+            try {
+                await this.contract.mint(account_one, 9999, {from: account_two});
+                assert.fail("Minting somehow worked when initiated by an address that is not the contract owner");
+            } catch (e) {
+                // pass
+            }
         })
 
         it('should return contract owner', async function () { 
