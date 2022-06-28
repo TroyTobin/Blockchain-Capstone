@@ -4,7 +4,6 @@ var SquareVerifier = artifacts.require('SquareVerifier');
 contract('TestSolnSquareVerifier', accounts => {
 
     const account_one = accounts[0];
-    const account_two = accounts[1];
 
     const owner = account_one;
 
