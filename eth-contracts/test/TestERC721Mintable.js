@@ -15,7 +15,7 @@ contract('TestERC721Mintable', accounts => {
 
             // TODO: mint multiple tokens
             // Mint 10 tokens for each address
-            for (let i = TOTAL_SUPPLY_PER_USER; i > 0; i--) {
+            for (let i = 0; i < TOTAL_SUPPLY_PER_USER; i++) {
 
                 let token_one = 1000 + i;
                 let token_two = 2000 + i;
@@ -41,7 +41,20 @@ contract('TestERC721Mintable', accounts => {
 
         // token uri should be complete i.e: https://s3-us-west-2.amazonaws.com/udacity-blockchain/capstone/1
         it('should return token uri', async function () { 
-            
+            // For each token get the tokenURI and check against expected
+            for(let i = 0; i < TOTAL_SUPPLY_PER_USER; i++)
+            {
+                let tokenId_one  = await this.contract.tokenOfOwnerByIndex(account_one, i);
+                let tokenURI_one = await this.contract.tokenURI(tokenId_one)
+                let expected_one = "https://s3-us-west-2.amazonaws.com/udacity-blockchain/capstone/" + (1000 + i)
+                assert.equal(tokenURI_one, expected_one, "Token '" + tokenId_one + "' does not match: " + tokenURI_one + " != " + expected_one);
+
+
+                let tokenId_two  = await this.contract.tokenOfOwnerByIndex(account_two, i);
+                let tokenURI_two = await this.contract.tokenURI(tokenId_two)
+                let expected_two = "https://s3-us-west-2.amazonaws.com/udacity-blockchain/capstone/" + (2000 + i)
+                assert.equal(tokenURI_two, expected_two, "Token '" + tokenId_two + "' does not match: " + tokenURI_two + " != " + expected_two);
+            }
         })
 
         it('should transfer token from one owner to another', async function () { 
