@@ -1,6 +1,6 @@
 pragma solidity ^0.8.15;
 
-import "./verifier.sol";
+import "./SquareVerifier.sol";
 import "./ERC721Mintable.sol";
 
 // Using this as a guide
@@ -19,7 +19,7 @@ import "./ERC721Mintable.sol";
 contract SolnSquareVerifier is CustomERC721Token
 {
     // Verifier contract
-    Verifier verifierContract;
+    SquareVerifier verifierContract;
 
     // TODO define a solutions struct that can hold an index & an address
     struct Solution {
@@ -38,7 +38,7 @@ contract SolnSquareVerifier is CustomERC721Token
     // Constructor sets the verifier contract address to that which is already deployed
     constructor(address verifierContractAddress) CustomERC721Token()
     {
-        verifierContract = Verifier(verifierContractAddress);
+        verifierContract = SquareVerifier(verifierContractAddress);
     }
 
     function solutionHash(Solution memory s) internal
@@ -65,7 +65,7 @@ contract SolnSquareVerifier is CustomERC721Token
     //  - make sure you handle metadata as well as tokenSupply
 
     // 1. mint function and inputs necessary parameters to mint and proof
-    function mintNewNFT(uint256 tokenId, address addr, Verifier.Proof memory proof, uint[2] memory input) external
+    function mintNewNFT(uint256 tokenId, address addr, SquareVerifier.Proof memory proof, uint[2] memory input) external
     {
 
         // 2. Solution is uniq

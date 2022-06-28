@@ -1,8 +1,5 @@
 const HDWalletProvider = require("@truffle/hdwallet-provider");
 
-// Temporary - taken from FlightSurety App
-var mnemonic = "candy maple cake sugar pudding cream honey rich smooth crumble sweet treat";
-
 module.exports = {
   networks: {
      development: {
