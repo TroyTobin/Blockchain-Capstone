@@ -31,6 +31,7 @@ contract('TestSolnSquareVerifier', accounts => {
         // Test if an ERC721 token can be minted for contract - SolnSquareVerifier
         it('should return total supply', async function () { 
 
+            // Copy of proof.json for ease
             let proof = {
                 "scheme": "g16",
                 "curve": "bn128",
@@ -58,7 +59,15 @@ contract('TestSolnSquareVerifier', accounts => {
                   "0x0000000000000000000000000000000000000000000000000000000000000009",
                   "0x0000000000000000000000000000000000000000000000000000000000000001"
                 ]
-              };
+            };
+
+            let test_tokenId = 1;
+
+            await this.contract.mintNewNFT(test_tokenId, account_one, proof.proof, proof.inputs);
+
+            // Check the account balance that the mint actually worked
+            let account_one_bal = await this.contract.balanceOf(account_one);
+            assert.equal(account_one_bal, 1, "Mint failed")
         })
     });
 });
