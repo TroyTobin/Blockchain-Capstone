@@ -3,7 +3,9 @@ pragma solidity ^0.8.15;
 import 'openzeppelin-solidity/contracts/utils/Address.sol';
 import 'openzeppelin-solidity/contracts/utils/Counters.sol';
 import 'openzeppelin-solidity/contracts/utils/math/SafeMath.sol';
+import "openzeppelin-solidity/contracts/utils/Strings.sol";
 import 'openzeppelin-solidity/contracts/token/ERC721/IERC721Receiver.sol';
+
 import "./Oraclize.sol";
 
 contract Ownable {
@@ -146,7 +148,7 @@ contract ERC165 {
      * @dev internal method for registering an interface
      */
     function _registerInterface(bytes4 interfaceId) internal {
-        require(interfaceId != 0xffffffff);
+        require(interfaceId != 0xffffffff, "Interface ID invalid");
         _supportedInterfaces[interfaceId] = true;
     }
 }
@@ -232,7 +234,7 @@ contract ERC721 is Pausable, ERC165 {
      * @param approved representing the status of the approval to be set
      */
     function setApprovalForAll(address to, bool approved) public {
-        require(to != msg.sender);
+        require(to != msg.sender, "To address is the sender");
         _operatorApprovals[msg.sender][to] = approved;
         emit ApprovalForAll(msg.sender, to, approved);
     }
@@ -248,7 +250,7 @@ contract ERC721 is Pausable, ERC165 {
     }
 
     function transferFrom(address from, address to, uint256 tokenId) public {
-        require(_isApprovedOrOwner(msg.sender, tokenId));
+        require(_isApprovedOrOwner(msg.sender, tokenId), "Transer not approved or owner");
 
         _transferFrom(from, to, tokenId);
     }
@@ -259,7 +261,7 @@ contract ERC721 is Pausable, ERC165 {
 
     function safeTransferFrom(address from, address to, uint256 tokenId, bytes memory _data) public {
         transferFrom(from, to, tokenId);
-        require(_checkOnERC721Received(from, to, tokenId, _data));
+        require(_checkOnERC721Received(from, to, tokenId, _data), "check ERC721Recieved Failed");
     }
 
     /**
@@ -294,10 +296,14 @@ contract ERC721 is Pausable, ERC165 {
         require(!_exists(tokenId), "Token already exists");
   
         // TODO mint tokenId to given address & increase token count of owner
-        safeTransferFrom(msg.sender, to, tokenId);
+        // Note - can't do a "transfer" here as this is a mint - and is not owned yet
+        _ownedTokensCount[to].increment();
+        _tokenOwner[tokenId] = to;
 
         // TODO emit Transfer event
         // Already taken care of in the safe transfer above
+        // There is no "from" address as this is the mint of the token
+        emit Transfer(address(0), to, tokenId);
 
     }
 
@@ -391,7 +397,7 @@ contract ERC721Enumerable is ERC165, ERC721 {
      * @return uint256 token ID at the given index of the tokens list owned by the requested address
      */
     function tokenOfOwnerByIndex(address owner, uint256 index) public view returns (uint256) {
-        require(index < balanceOf(owner));
+        require(index < balanceOf(owner), "Cannot get token of owner by index, index out of bounds");
         return _ownedTokens[owner][index];
     }
 
@@ -410,7 +416,7 @@ contract ERC721Enumerable is ERC165, ERC721 {
      * @return uint256 token ID at the given index of the tokens list
      */
     function tokenByIndex(uint256 index) public view returns (uint256) {
-        require(index < totalSupply());
+        require(index < totalSupply(), "Cannot get token by index, index out of bounds");
         return _allTokens[index];
     }
 
@@ -584,7 +590,7 @@ contract ERC721Metadata is ERC721Enumerable, usingOraclize {
     }
 
     function tokenURI(uint256 tokenId) external view returns (string memory) {
-        require(_exists(tokenId));
+        require(_exists(tokenId), "Cannot get tokenURI, the token does not exist");
         return _tokenURIs[tokenId];
     }
 
@@ -597,8 +603,8 @@ contract ERC721Metadata is ERC721Enumerable, usingOraclize {
     // require the token exists before setting
     function setTokenURI(uint256 tokenId) internal
     {
-        require(_exists(tokenId));
-        _tokenURIs[tokenId] = strConcat(_baseTokenURI, uint2str(tokenId));
+        require(_exists(tokenId), "Cannot set tokenURI, the token does not exist");
+        _tokenURIs[tokenId] = string.concat(baseTokenURI(), Strings.toString(tokenId));
     }
 
 }
@@ -623,7 +629,7 @@ contract CustomERC721Token is ERC721Metadata {
         super.setTokenURI(tokenId);
 
         return true;
-    }
+    }    
 }
 
 
