@@ -27,11 +27,16 @@ contract('TestERC721Mintable', accounts => {
 
         it('should return total supply', async function () { 
             let supply = await this.contract.totalSupply();
-            assert.equal(supply, TOTAL_SUPPLY_PER_USER * 2, "Total supply retured " + supply + " != " + TOTAL_SUPPLY_PER_USER*2)
+            assert.equal(supply, TOTAL_SUPPLY_PER_USER * 2, "Total supply returned: " + supply + " != " + TOTAL_SUPPLY_PER_USER*2)
         })
 
         it('should get token balance', async function () { 
             
+            let account_one_bal = await this.contract.balanceOf(account_one);
+            let account_two_bal = await this.contract.balanceOf(account_two);
+
+            assert.equal(account_one_bal, TOTAL_SUPPLY_PER_USER, "Total supply of account one returned: " + account_one_bal + " != " + TOTAL_SUPPLY_PER_USER)
+            assert.equal(account_two_bal, TOTAL_SUPPLY_PER_USER, "Total supply of account two returned: " + account_two_bal + " != " + TOTAL_SUPPLY_PER_USER)
         })
 
         // token uri should be complete i.e: https://s3-us-west-2.amazonaws.com/udacity-blockchain/capstone/1
