@@ -615,9 +615,9 @@ contract CustomERC721Token is ERC721Metadata {
 
     constructor () ERC721Metadata("UdacityCapstoneRealestate", "UCR", "https://s3-us-west-2.amazonaws.com/udacity-blockchain/capstone/") {}
 
-    function mint(address to, uint256 tokenId, string memory tokenURI) external
-                                                                       onlyOwner()
-                                                                       returns(bool)
+    function mint(address to, uint256 tokenId) public
+                                               onlyOwner()
+                                               returns(bool)
     {
         super._mint(to, tokenId);
         super.setTokenURI(tokenId);
