@@ -41,19 +41,28 @@ contract SolnSquareVerifier is CustomERC721Token
         verifierContract = SquareVerifier(verifierContractAddress);
     }
 
-    function solutionHash(Solution memory s) internal
-                                             pure
-                                             returns(bytes32)
+    function getSolutionByHash(bytes32 s_hash) public
+                                               view
+                                               returns (uint256, address) 
     {
-        bytes32 s_hash = keccak256(abi.encode(s.tokenId, s.addr));
+        Solution memory s = solutionMap[s_hash];
+        return (s.tokenId, s.addr);
+    }
+
+    function solutionHash(uint256 tokenId, address addr) public
+                                                         pure
+                                                         returns(bytes32)
+    {
+        bytes32 s_hash = keccak256(abi.encode(tokenId, addr));
         return s_hash;
     }
 
 
     // TODO Create a function to add the solutions to the array and emit the event
-    function addSolution(Solution memory s) internal
+    function addSolution(uint256 tokenId, address addr) public
     {
-        bytes32 s_hash = solutionHash(s);
+        Solution memory s = Solution(tokenId, addr);
+        bytes32 s_hash = solutionHash(s.tokenId, s.addr);
         solutionMap[s_hash] = s;
 
         emit solutionAdded(s);
@@ -69,8 +78,7 @@ contract SolnSquareVerifier is CustomERC721Token
     {
 
         // 2. Solution is uniq
-        Solution memory s = Solution(tokenId, addr);
-        bytes32 s_hash = solutionHash(s);
+        bytes32 s_hash = solutionHash(tokenId, addr);
         require(solutionMap[s_hash].tokenId == 0 && solutionMap[s_hash].addr == address(0), "Solution is already used");
 
 
@@ -78,7 +86,7 @@ contract SolnSquareVerifier is CustomERC721Token
         require(verifierContract.verifyTx(proof, input), "Proof is not valid");
 
         // 4. Execute the add Solution function to store the solution to make sure that this solution cant be used in the future
-        addSolution(s);
+        addSolution(tokenId, addr);
 
         // 5. mint the token
         super.mint(addr, tokenId);
