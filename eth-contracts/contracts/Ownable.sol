@@ -50,7 +50,7 @@ contract Ownable {
     // Modifier to verify that the address is valid
     modifier isValidAddress(address a)
     {
-        require(a != address(0), "Not a valid address");
+        require(_isValidAddress(a), "Not a valid address");
         _;
     }
 
@@ -74,6 +74,14 @@ contract Ownable {
     //                              FUNCTIONS
     //
     //=========================================================================
+
+    function _isValidAddress(address a) internal
+                                        pure
+                                        returns(bool)
+    {
+        return (a != address(0));
+    }
+
 
     // public getter function for owner
     function owner() external

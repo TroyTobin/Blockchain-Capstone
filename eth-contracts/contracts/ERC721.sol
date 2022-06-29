@@ -52,7 +52,7 @@ contract ERC721 is Pausable, ERC165 {
     //                              CONSTRUCTOR
     //
     //=========================================================================
-    
+
     constructor () 
     {
         // register the supported interfaces to conform to ERC721 via ERC165
@@ -122,6 +122,15 @@ contract ERC721 is Pausable, ERC165 {
     //                              FUNCTIONS
     //
     //=========================================================================
+    
+    function isValidToken(uint256 tokenId) internal
+                                           pure
+                                           returns(bool)
+    {
+        return (tokenId != 0);
+    }
+
+
 
     function balanceOf(address owner) public
                                       view
