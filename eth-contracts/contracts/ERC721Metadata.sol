@@ -15,14 +15,17 @@ contract ERC721Metadata is ERC721Enumerable, usingOraclize {
     // TODO: create private mapping of tokenId's to token uri's called '_tokenURIs'
     mapping(uint256 => string) private _tokenURIs;
 
-    bytes4 private constant _INTERFACE_ID_ERC721_METADATA = 0x5b5e139f;
     /*
-     * 0x5b5e139f ===
-     *     bytes4(keccak256('name()')) ^
-     *     bytes4(keccak256('symbol()')) ^
-     *     bytes4(keccak256('tokenURI(uint256)'))
+     * 0x5b5e139f === bytes4(keccak256('name()')) ^ bytes4(keccak256('symbol()')) ^ bytes4(keccak256('tokenURI(uint256)'))
      */
+    bytes4 private constant _INTERFACE_ID_ERC721_METADATA = 0x5b5e139f;
 
+
+    //=========================================================================
+    //
+    //                              CONSTRUCTOR
+    //
+    //=========================================================================
 
     constructor (string memory aname, string memory asymbol, string memory abaseTokenURI) {
         // TODO: set instance var values

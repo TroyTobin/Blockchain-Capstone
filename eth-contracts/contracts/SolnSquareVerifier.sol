@@ -32,14 +32,34 @@ contract SolnSquareVerifier is CustomERC721Token
     mapping (bytes32 => Solution) solutionMap;
 
 
+    //=========================================================================
+    //
+    //                              EVENTS
+    //
+    //=========================================================================
+
     // TODO Create an event to emit when a solution is added
     event solutionAdded(Solution s);
+
+
+    //=========================================================================
+    //
+    //                              CONSTRUCTOR
+    //
+    //=========================================================================
 
     // Constructor sets the verifier contract address to that which is already deployed
     constructor(address verifierContractAddress) CustomERC721Token()
     {
         verifierContract = SquareVerifier(verifierContractAddress);
     }
+
+
+    //=========================================================================
+    //
+    //                              FUNCTIONS
+    //
+    //=========================================================================
 
     function getSolutionByHash(bytes32 s_hash) public
                                                view

@@ -12,8 +12,19 @@ import "./ERC721Metadata.sol";
 //      -calls the superclass mint and setTokenURI functions
 contract CustomERC721Token is ERC721Metadata {
 
+    //=========================================================================
+    //
+    //                              CONSTRUCTOR
+    //
+    //=========================================================================
+
     constructor () ERC721Metadata("UdacityCapstoneRealestate", "UCR", "https://s3-us-west-2.amazonaws.com/udacity-blockchain/capstone/") {}
 
+    //=========================================================================
+    //
+    //                              FUNCTIONS
+    //
+    //=========================================================================
     function mint(address to, uint256 tokenId) public
                                                addressIsOwner(msg.sender)
                                                returns(bool)

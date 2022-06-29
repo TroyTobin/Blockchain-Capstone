@@ -2,8 +2,7 @@ pragma solidity ^0.8.15;
 
 contract ERC165 {
     /*
-     * 0x01ffc9a7 ===
-     *     bytes4(keccak256('supportsInterface(bytes4)'))
+     * 0x01ffc9a7 === bytes4(keccak256('supportsInterface(bytes4)'))
      */
     bytes4 private constant _INTERFACE_ID_ERC165 = 0x01ffc9a7;
 
@@ -11,7 +10,6 @@ contract ERC165 {
      * @dev a mapping of interface id to whether or not it's supported
      */
     mapping(bytes4 => bool) private _supportedInterfaces;
-
 
     //=========================================================================
     //
@@ -23,10 +21,11 @@ contract ERC165 {
         _;
     }
 
-    /**
-     * @dev A contract implementing SupportsInterfaceWithLookup
-     * implement ERC165 itself
-     */
+    //=========================================================================
+    //
+    //                              CONSTRUCTOR
+    //
+    //=========================================================================
     constructor ()
     {
         _registerInterface(_INTERFACE_ID_ERC165);

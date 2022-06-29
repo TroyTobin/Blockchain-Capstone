@@ -14,6 +14,12 @@ contract Ownable {
     event ownershipTransfered(address from, address to);
 
 
+    //=========================================================================
+    //
+    //                              CONSTRUCTOR
+    //
+    //=========================================================================
+
     // create an internal constructor that sets the _owner var to the creater of the contract 
     constructor()
     {
@@ -68,7 +74,6 @@ contract Ownable {
     //                              FUNCTIONS
     //
     //=========================================================================
-
 
     // public getter function for owner
     function owner() external

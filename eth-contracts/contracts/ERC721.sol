@@ -10,10 +10,6 @@ import "./Pausable.sol";
 
 contract ERC721 is Pausable, ERC165 {
 
-    event Transfer(address indexed from, address indexed to, uint256 indexed tokenId);
-    event Approval(address indexed owner, address indexed approved, uint256 indexed tokenId);
-    event ApprovalForAll(address indexed owner, address indexed operator, bool approved);
-    
     using SafeMath for uint256;
     using Address for address;
     using Counters for Counters.Counter;
@@ -39,6 +35,24 @@ contract ERC721 is Pausable, ERC165 {
 
     bytes4 private constant _INTERFACE_ID_ERC721 = 0x80ac58cd;
 
+
+    //=========================================================================
+    //
+    //                              EVENTS
+    //
+    //=========================================================================
+
+    event Transfer(address indexed from, address indexed to, uint256 indexed tokenId);
+    event Approval(address indexed owner, address indexed approved, uint256 indexed tokenId);
+    event ApprovalForAll(address indexed owner, address indexed operator, bool approved);
+    
+    
+    //=========================================================================
+    //
+    //                              CONSTRUCTOR
+    //
+    //=========================================================================
+    
     constructor () 
     {
         // register the supported interfaces to conform to ERC721 via ERC165
