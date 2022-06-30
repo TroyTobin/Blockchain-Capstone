@@ -11,7 +11,7 @@ import "./Pausable.sol";
 contract ERC721 is Pausable, ERC165 {
 
     using SafeMath for uint256;
-    using Address for address;
+    using Address  for address;
     using Counters for Counters.Counter;
 
     // Equals to `bytes4(keccak256("onERC721Received(address,address,uint256,bytes)"))`
@@ -122,7 +122,8 @@ contract ERC721 is Pausable, ERC165 {
     //                              FUNCTIONS
     //
     //=========================================================================
-    
+
+    // Check if a token id is valid    
     function isValidToken(uint256 tokenId) internal
                                            pure
                                            returns(bool)
@@ -131,21 +132,19 @@ contract ERC721 is Pausable, ERC165 {
     }
 
 
-
+    // Returns the token balance of given address
     function balanceOf(address owner) public
                                       view
                                       returns (uint256)
     {
-        // TODO return the token balance of given address
-        // TIP: remember the functions to use for Counters. you can refresh yourself with the link above
         return _ownedTokensCount[owner].current();
     }
-
+        
+    // Returns the owner of the given tokenId
     function ownerOf(uint256 tokenId) public
                                       view
                                       returns (address)
     {
-        // TODO return the owner of the given tokenId
         return _tokenOwner[tokenId];
     }
 
@@ -162,14 +161,15 @@ contract ERC721 is Pausable, ERC165 {
         _tokenApprovals[tokenId] = to;
 
         // emit Approval Event
-        emit Approval(to, msg.sender, tokenId);
+        emit Approval(msg.sender, to, tokenId);
     }
 
+    
+    // Returns token approval if it exists
     function getApproved(uint256 tokenId) public
                                           view
                                           returns (address)
     {
-        // TODO return token approval if it exists
         return _tokenApprovals[tokenId];
     }
 
@@ -184,6 +184,7 @@ contract ERC721 is Pausable, ERC165 {
                                                           isNotSender(to)
     {
         _operatorApprovals[msg.sender][to] = approved;
+
         emit ApprovalForAll(msg.sender, to, approved);
     }
 
@@ -246,19 +247,18 @@ contract ERC721 is Pausable, ERC165 {
 
     // @dev Internal function to mint a new token
     // TIP: remember the functions to use for Counters. you can refresh yourself with the link above
-    // TODO revert if given tokenId already exists or given address is invalid
+    // Revert if given tokenId already exists or given address is invalid
     function _mint(address to, uint256 tokenId) internal 
                                                 virtual
                                                 isNotPaused()
                                                 tokenNotExist(tokenId)
     {
-        // TODO mint tokenId to given address & increase token count of owner
+        // Mint tokenId to given address & increase token count of owner
         // Note - can't do a "transfer" here as this is a mint - and is not owned yet
         _ownedTokensCount[to].increment();
         _tokenOwner[tokenId] = to;
 
-        // TODO emit Transfer event
-        // Already taken care of in the safe transfer above
+        // Emit transfer event
         // There is no "from" address as this is the mint of the token
         emit Transfer(address(0), to, tokenId);
 
@@ -266,23 +266,21 @@ contract ERC721 is Pausable, ERC165 {
 
     // @dev Internal function to transfer ownership of a given token ID to another address.
     // TIP: remember the functions to use for Counters. you can refresh yourself with the link above
-    // TODO: require from address is the owner of the given token
-    // TODO: require token is being transfered to valid address
     function _transferFrom(address from, address to, uint256 tokenId) internal
                                                                       virtual
                                                                       isNotPaused()
                                                                       addressMatches(from, ownerOf(tokenId))
                                                                       isValidAddress(to)
     {
-        // TODO: clear approval
+        // Clear approval
         _clearApproval(tokenId);
 
-        // TODO: update token counts & transfer ownership of the token ID
+        // Update token counts & transfer ownership of the token ID
         _ownedTokensCount[from].decrement();
         _ownedTokensCount[to].increment();
         _tokenOwner[tokenId] = to;
 
-        // TODO: emit correct event
+        // Emit transfer event
         emit Transfer(msg.sender, to, tokenId);
     }
 

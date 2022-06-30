@@ -24,9 +24,12 @@ contract ERC721Enumerable is ERC165, ERC721 {
      *     bytes4(keccak256('tokenByIndex(uint256)'))
      */
 
-    /**
-     * @dev Constructor function
-     */
+    //=========================================================================
+    //
+    //                              CONSTRUCTOR
+    //
+    //=========================================================================
+
     constructor () 
     {
         // register the supported interface to conform to ERC721Enumerable via ERC165

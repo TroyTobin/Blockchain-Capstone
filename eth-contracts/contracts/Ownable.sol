@@ -1,7 +1,6 @@
 pragma solidity ^0.8.15;
 
 contract Ownable {
-    // create a private '_owner' variable of type address
     address private _owner;
 
     //=========================================================================
@@ -10,7 +9,6 @@ contract Ownable {
     //
     //=========================================================================
     
-    // create an event that emits anytime ownerShip is transfered (including in the constructor)
     event ownershipTransfered(address from, address to);
 
 
@@ -20,7 +18,6 @@ contract Ownable {
     //
     //=========================================================================
 
-    // create an internal constructor that sets the _owner var to the creater of the contract 
     constructor()
     {
         _owner = msg.sender;
@@ -75,6 +72,7 @@ contract Ownable {
     //
     //=========================================================================
 
+    // Generic reusable check if an address is valid
     function _isValidAddress(address a) internal
                                         pure
                                         returns(bool)
@@ -83,10 +81,10 @@ contract Ownable {
     }
 
 
-    // public getter function for owner
-    function owner() external
-                     view
-                     returns(address)
+    // Getter for the private member
+    function getOwner() external
+                        view
+                        returns(address)
     {
         return _owner;
         
@@ -94,13 +92,15 @@ contract Ownable {
 
     // Transfer ownership
     // Ensures that the transfer is from the owner to some other valid address
-    function transferOwnership(address newOwner) public
-                                                 addressIsOwner(msg.sender)
-                                                 isValidAddress(newOwner)
-                                                 addressNotOwner(newOwner)
+    function transferOwnership(address to) public
+                                           addressIsOwner(msg.sender)
+                                           isValidAddress(to)
+                                           addressNotOwner(to)
     {
         address origOwner = _owner;
-        _owner = newOwner;
+        _owner = to;
+
+        // Emit event to signify the ownable transfer
         emit ownershipTransfered(origOwner, _owner);
     }
 }
