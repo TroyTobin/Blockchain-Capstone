@@ -15,8 +15,10 @@
   },
   "dependencies": {
     "@truffle/hdwallet-provider": "^2.0.4",
+    "node": "^14.17.6",
     "openzeppelin-solidity": "4.6.0",
     "solc": "0.8.15",
-    "solc-js": "1.0.1"
+    "solc-js": "1.0.1",
+    "web3": "1.7.4"
   }
 }

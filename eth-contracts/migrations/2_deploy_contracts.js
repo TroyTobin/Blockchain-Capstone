@@ -4,6 +4,8 @@ var SolnSquareVerifier = artifacts.require("./SolnSquareVerifier.sol");
 
 module.exports = function(deployer) {
   deployer.deploy(SquareVerifier).then(function(verifierInstance) {
-    deployer.deploy(SolnSquareVerifier, verifierInstance.address)
+    return deployer.deploy(SolnSquareVerifier, verifierInstance.address).then(function(SolnSquareVerifierInstance) {
+      console.log(verifierInstance.address, SolnSquareVerifierInstance.address);
+    })
   });
 };
