@@ -277,6 +277,13 @@ MINTED: 10
 # Opensea collection
 https://testnets.opensea.io/collection/udacitycapstonerealestate
 
+## Tested Listing and Sales
+
+1. Listed the "Manufacturing Warehouse" for 1 eth from the contract owner 0x4b3E79411233668Af1D46cf790a463EBB07351c0
+
+2. Sold to address 0x1f1C8D8452C0d5bbC613FA5bcb064a14E1AE255F
+https://testnets.opensea.io/assets/rinkeby/0xa6f96df59ba3694faaca2b2dcec1a2beee4e37f5/3
+
 
 # Project Resources
 
