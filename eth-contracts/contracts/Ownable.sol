@@ -30,10 +30,17 @@ contract Ownable {
     //
     //=========================================================================
 
-    // Modifier to verify that the caller is the owner of the contract
+    // Modifier to verify that the input address is the owner of the contract
     modifier addressIsOwner(address a)
     {
         require(a == _owner, "Address is not owner");
+        _;
+    }
+
+    // Modifier to verify that the caller is the owner of the contract
+    modifier onlyOwner()
+    {
+        require(msg.sender == _owner, "Address is not owner");
         _;
     }
 
@@ -82,9 +89,9 @@ contract Ownable {
 
 
     // Getter for the private member
-    function getOwner() external
-                        view
-                        returns(address)
+    function owner() external
+                     view
+                     returns(address)
     {
         return _owner;
         

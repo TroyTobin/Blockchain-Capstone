@@ -45,13 +45,13 @@ contract('TestERC721Mintable', accounts => {
             for(let i = 0; i < TOTAL_SUPPLY_PER_USER; i++)
             {
                 let tokenId_one  = await this.contract.tokenOfOwnerByIndex(account_one, i);
-                let tokenURI_one = await this.contract.getTokenURI(tokenId_one)
+                let tokenURI_one = await this.contract.tokenURI(tokenId_one)
                 let expected_one = "https://s3-us-west-2.amazonaws.com/udacity-blockchain/capstone/" + (1000 + i)
                 assert.equal(tokenURI_one, expected_one, "Token '" + tokenId_one + "' does not match: " + tokenURI_one + " != " + expected_one);
 
 
                 let tokenId_two  = await this.contract.tokenOfOwnerByIndex(account_two, i);
-                let tokenURI_two = await this.contract.getTokenURI(tokenId_two)
+                let tokenURI_two = await this.contract.tokenURI(tokenId_two)
                 let expected_two = "https://s3-us-west-2.amazonaws.com/udacity-blockchain/capstone/" + (2000 + i)
                 assert.equal(tokenURI_two, expected_two, "Token '" + tokenId_two + "' does not match: " + tokenURI_two + " != " + expected_two);
             }
@@ -75,7 +75,7 @@ contract('TestERC721Mintable', accounts => {
             for(let i = 0; i < TOTAL_SUPPLY_PER_USER; i++)
             {
                 let tokenId_two  = await this.contract.tokenOfOwnerByIndex(account_two, i);
-                let tokenURI_two = await this.contract.getTokenURI(tokenId_two)
+                let tokenURI_two = await this.contract.tokenURI(tokenId_two)
                 let expected_two = "https://s3-us-west-2.amazonaws.com/udacity-blockchain/capstone/" + (2000 + i)
                 assert.equal(tokenURI_two, expected_two, "Token '" + tokenId_two + "' does not match: " + tokenURI_two + " != " + expected_two);
             }
@@ -83,7 +83,7 @@ contract('TestERC721Mintable', accounts => {
             for(let i = TOTAL_SUPPLY_PER_USER; i < 2 * TOTAL_SUPPLY_PER_USER; i++)
             {
                 let tokenId_two  = await this.contract.tokenOfOwnerByIndex(account_two, i);
-                let tokenURI_two = await this.contract.getTokenURI(tokenId_two)
+                let tokenURI_two = await this.contract.tokenURI(tokenId_two)
                 let expected_two = "https://s3-us-west-2.amazonaws.com/udacity-blockchain/capstone/" + (1000 + (i - TOTAL_SUPPLY_PER_USER))
                 assert.equal(tokenURI_two, expected_two, "Token '" + tokenId_two + "' does not match: " + tokenURI_two + " != " + expected_two);
             }
@@ -107,7 +107,7 @@ contract('TestERC721Mintable', accounts => {
             for(let i = 0; i < TOTAL_SUPPLY_PER_USER; i++)
             {
                 let tokenId_one  = await this.contract.tokenOfOwnerByIndex(account_one, i);
-                let tokenURI_one = await this.contract.getTokenURI(tokenId_one)
+                let tokenURI_one = await this.contract.tokenURI(tokenId_one)
                 let expected_one = "https://s3-us-west-2.amazonaws.com/udacity-blockchain/capstone/" + (2000 + i)
                 assert.equal(tokenURI_one, expected_one, "Token '" + tokenId_one + "' does not match: " + tokenURI_one + " != " + expected_one);
             }
@@ -116,7 +116,7 @@ contract('TestERC721Mintable', accounts => {
             for(let i = 0; i < TOTAL_SUPPLY_PER_USER; i++)
             {
                 let tokenId_two  = await this.contract.tokenOfOwnerByIndex(account_two, i);
-                let tokenURI_two = await this.contract.getTokenURI(tokenId_two)
+                let tokenURI_two = await this.contract.tokenURI(tokenId_two)
                 let expected_two = "https://s3-us-west-2.amazonaws.com/udacity-blockchain/capstone/" + (1000 + (TOTAL_SUPPLY_PER_USER - 1 - i))
                 assert.equal(tokenURI_two, expected_two, "Token '" + tokenId_two + "' does not match: " + tokenURI_two + " != " + expected_two);
             }
@@ -138,7 +138,7 @@ contract('TestERC721Mintable', accounts => {
         })
 
         it('should return contract owner', async function () { 
-            let ret_owner = await this.contract.getOwner();
+            let ret_owner = await this.contract.owner();
             assert.equal(ret_owner, owner, "Owner not returned correctly: " + ret_owner + " != " + owner);
         })
     });

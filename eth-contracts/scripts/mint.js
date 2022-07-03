@@ -33,10 +33,12 @@ async function mint(index) {
         let result = await nftContract.methods.mintNewNFT(index, OWNER_ADDRESS, PROOF.proof, PROOF.inputs).send({from:OWNER_ADDRESS, gas:3000000});
     
         console.log("MINTED: " + index);
+        process.exit()
     }
     catch(e)
     {
         console.log(e);
+        process.exit()
     }
 
 }

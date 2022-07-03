@@ -42,31 +42,32 @@ contract ERC721Metadata is ERC721Enumerable, usingOraclize {
     //=========================================================================
 
     // Getter functions for name, symbol, and baseTokenURI
-    function getName() public
-                        view
-                        returns(string memory)
+    // The name of these functions is described in https://eips.ethereum.org/EIPS/eip-721
+    function name() public
+                    view
+                    returns(string memory)
     {
         return _name;
     }
 
-    function getSymbol() public
-                         view
-                         returns(string memory)
+    function symbol() public
+                      view
+                      returns(string memory)
     {
         return _symbol;
     }
 
-    function getBaseTokenURI() public
-                               view
-                               returns(string memory)
+    function baseTokenURI() public
+                            view
+                            returns(string memory)
     {
         return _baseTokenURI;
     }
 
-    function getTokenURI(uint256 tokenId) external
-                                          view
-                                          tokenExists(tokenId)
-                                          returns (string memory)
+    function tokenURI(uint256 tokenId) external
+                                       view
+                                       tokenExists(tokenId)
+                                       returns (string memory)
     {
         return _tokenURIs[tokenId];
     }
@@ -77,7 +78,7 @@ contract ERC721Metadata is ERC721Enumerable, usingOraclize {
     function setTokenURI(uint256 tokenId) internal
                                           tokenExists(tokenId)
     {
-        _tokenURIs[tokenId] = string.concat(getBaseTokenURI(), Strings.toString(tokenId));
+        _tokenURIs[tokenId] = string.concat(baseTokenURI(), Strings.toString(tokenId));
     }
 
 }
