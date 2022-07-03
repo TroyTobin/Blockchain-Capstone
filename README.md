@@ -7,11 +7,15 @@ The capstone will build upon the knowledge you have gained in the course in orde
 # Tests
 
 In one terminal run ganachi
+```
 $ ganache-cli 
-
+```
 In a second terminal run the tests
+```
 $ truffle test
+```
 
+Results are shown here
 ```
 Contract: TestERC721Mintable
 match erc721 spec
@@ -45,9 +49,11 @@ https://rinkeby.etherscan.io/address/0xa6f96Df59bA3694FAACa2b2dcEc1a2beee4e37F5
 ## Tokens 
 https://rinkeby.etherscan.io/token/0xa6f96Df59bA3694FAACa2b2dcEc1a2beee4e37F5
 
-
+```
 $ truffle migrate --reset --network rinkeby
+```
 
+Deploy log shown here
 ```
 Compiling your contracts...
 ===========================
@@ -215,60 +221,81 @@ In the scripts folder run the follwing mint.js script that can be parameterised 
 the tokenId to mint.  Noting that a proof for that token needs to be present in the form
 `proof.<tokenId>.json`
 
+```
 $ node mint.js 1
+```
 ```
 MINTING TOKEN: 1 @ (https://rinkeby.infura.io/v3/4c94da61fa524b089dbb77a31718dbd9)
 MINTED: 1
 ```
-
+___________________________________________________________________________________
+```
 $ node mint.js 2
+```
 ```
 MINTING TOKEN: 2 @ (https://rinkeby.infura.io/v3/4c94da61fa524b089dbb77a31718dbd9)
 MINTED: 2
 ```
+___________________________________________________________________________________
+```
 $ node mint.js 3
+```
 ```
 MINTING TOKEN: 3 @ (https://rinkeby.infura.io/v3/4c94da61fa524b089dbb77a31718dbd9)
 MINTED: 3
 ```
-
+___________________________________________________________________________________
+```
 $ node mint.js 4
+```
 ```
 MINTING TOKEN: 4 @ (https://rinkeby.infura.io/v3/4c94da61fa524b089dbb77a31718dbd9)
 MINTED: 4
 ```
-
+___________________________________________________________________________________
+```
 $ node mint.js 5
+```
 ```
 MINTING TOKEN: 5 @ (https://rinkeby.infura.io/v3/4c94da61fa524b089dbb77a31718dbd9)
 MINTED: 5
 ```
-
+___________________________________________________________________________________
+```
 $ node mint.js 6
+```
 ```
 MINTING TOKEN: 6 @ (https://rinkeby.infura.io/v3/4c94da61fa524b089dbb77a31718dbd9)
 MINTED: 6
 ```
-
+___________________________________________________________________________________
+```
 $ node mint.js 7
+```
 ```
 MINTING TOKEN: 7 @ (https://rinkeby.infura.io/v3/4c94da61fa524b089dbb77a31718dbd9)
 MINTED: 7
 ```
-
+___________________________________________________________________________________
+```
 $ node mint.js 8
+```
 ```
 MINTING TOKEN: 8 @ (https://rinkeby.infura.io/v3/4c94da61fa524b089dbb77a31718dbd9)
 MINTED: 8
 ```
-
+___________________________________________________________________________________
+```
 $ node mint.js 9
+```
 ```
 MINTING TOKEN: 9 @ (https://rinkeby.infura.io/v3/4c94da61fa524b089dbb77a31718dbd9)
 MINTED: 9
 ```
-
+___________________________________________________________________________________
+```
 $ node mint.js 10
+```
 ```
 MINTING TOKEN: 10 @ (https://rinkeby.infura.io/v3/4c94da61fa524b089dbb77a31718dbd9)
 MINTED: 10
@@ -277,10 +304,10 @@ MINTED: 10
 # Opensea collection
 https://testnets.opensea.io/collection/udacitycapstonerealestate
 
-![image](https://user-images.githubusercontent.com/3337802/177039920-0ecf87a5-4a1e-4278-bd6f-bf14b758952b.png)
+<img src="https://user-images.githubusercontent.com/3337802/177039920-0ecf87a5-4a1e-4278-bd6f-bf14b758952b.png"  width="750px">
 
 ## Example item/token
-![image](https://user-images.githubusercontent.com/3337802/177039945-c72c134f-b961-46ab-b7e9-84a2dbae257d.png)
+<img src="https://user-images.githubusercontent.com/3337802/177039945-c72c134f-b961-46ab-b7e9-84a2dbae257d.png"  width="750px">
 
 
 ## Tested Listing and Sales
@@ -291,7 +318,10 @@ https://testnets.opensea.io/collection/udacitycapstonerealestate
 https://testnets.opensea.io/assets/rinkeby/0xa6f96df59ba3694faaca2b2dcec1a2beee4e37f5/3
 
 3. Note the last sale/transaction price
-![image](https://user-images.githubusercontent.com/3337802/177039895-b3056446-8f39-464d-9679-336d18b3c5da.png)
+
+<img src="https://user-images.githubusercontent.com/3337802/177039895-b3056446-8f39-464d-9679-336d18b3c5da.png"  width="350px">
+
+
 
 # Project Resources
 
