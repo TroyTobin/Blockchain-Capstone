@@ -225,7 +225,7 @@ the tokenId to mint.  Noting that a proof for that token needs to be present in 
 $ node mint.js 1
 ```
 ```
-MINTING TOKEN: 1 @ (https://rinkeby.infura.io/v3/4c94da61fa524b089dbb77a31718dbd9)
+MINTING TOKEN: 1 @ (https://rinkeby.infura.io/v3/##########)
 MINTED: 1
 ```
 ___________________________________________________________________________________
@@ -233,7 +233,7 @@ ________________________________________________________________________________
 $ node mint.js 2
 ```
 ```
-MINTING TOKEN: 2 @ (https://rinkeby.infura.io/v3/4c94da61fa524b089dbb77a31718dbd9)
+MINTING TOKEN: 2 @ (https://rinkeby.infura.io/v3/##########)
 MINTED: 2
 ```
 ___________________________________________________________________________________
@@ -241,7 +241,7 @@ ________________________________________________________________________________
 $ node mint.js 3
 ```
 ```
-MINTING TOKEN: 3 @ (https://rinkeby.infura.io/v3/4c94da61fa524b089dbb77a31718dbd9)
+MINTING TOKEN: 3 @ (https://rinkeby.infura.io/v3/##########)
 MINTED: 3
 ```
 ___________________________________________________________________________________
@@ -249,7 +249,7 @@ ________________________________________________________________________________
 $ node mint.js 4
 ```
 ```
-MINTING TOKEN: 4 @ (https://rinkeby.infura.io/v3/4c94da61fa524b089dbb77a31718dbd9)
+MINTING TOKEN: 4 @ (https://rinkeby.infura.io/v3/##########)
 MINTED: 4
 ```
 ___________________________________________________________________________________
@@ -257,7 +257,7 @@ ________________________________________________________________________________
 $ node mint.js 5
 ```
 ```
-MINTING TOKEN: 5 @ (https://rinkeby.infura.io/v3/4c94da61fa524b089dbb77a31718dbd9)
+MINTING TOKEN: 5 @ (https://rinkeby.infura.io/v3/##########)
 MINTED: 5
 ```
 ___________________________________________________________________________________
@@ -265,7 +265,7 @@ ________________________________________________________________________________
 $ node mint.js 6
 ```
 ```
-MINTING TOKEN: 6 @ (https://rinkeby.infura.io/v3/4c94da61fa524b089dbb77a31718dbd9)
+MINTING TOKEN: 6 @ (https://rinkeby.infura.io/v3/##########)
 MINTED: 6
 ```
 ___________________________________________________________________________________
@@ -273,7 +273,7 @@ ________________________________________________________________________________
 $ node mint.js 7
 ```
 ```
-MINTING TOKEN: 7 @ (https://rinkeby.infura.io/v3/4c94da61fa524b089dbb77a31718dbd9)
+MINTING TOKEN: 7 @ (https://rinkeby.infura.io/v3/##########)
 MINTED: 7
 ```
 ___________________________________________________________________________________
@@ -281,7 +281,7 @@ ________________________________________________________________________________
 $ node mint.js 8
 ```
 ```
-MINTING TOKEN: 8 @ (https://rinkeby.infura.io/v3/4c94da61fa524b089dbb77a31718dbd9)
+MINTING TOKEN: 8 @ (https://rinkeby.infura.io/v3/##########)
 MINTED: 8
 ```
 ___________________________________________________________________________________
@@ -289,7 +289,7 @@ ________________________________________________________________________________
 $ node mint.js 9
 ```
 ```
-MINTING TOKEN: 9 @ (https://rinkeby.infura.io/v3/4c94da61fa524b089dbb77a31718dbd9)
+MINTING TOKEN: 9 @ (https://rinkeby.infura.io/v3/##########)
 MINTED: 9
 ```
 ___________________________________________________________________________________
@@ -297,7 +297,7 @@ ________________________________________________________________________________
 $ node mint.js 10
 ```
 ```
-MINTING TOKEN: 10 @ (https://rinkeby.infura.io/v3/4c94da61fa524b089dbb77a31718dbd9)
+MINTING TOKEN: 10 @ (https://rinkeby.infura.io/v3/##########)
 MINTED: 10
 ```
 
